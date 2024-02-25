@@ -1,0 +1,30 @@
+FROM alpine:3.19.1
+
+WORKDIR /app
+
+RUN set -xe;
+
+ADD . .
+
+RUN apk add --no-cache python3 py3-pip;
+RUN apk add tini;
+
+ENV VIRTUAL_ENV /opt/venv
+RUN python3 -m venv $VIRTUAL_ENV; 
+RUN source $VIRTUAL_ENV/bin/activate;
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip install -r requirements.txt
+
+RUN pip install --upgrade pip setuptools-scm; \
+    python3 setup.py install; \
+    python3 quant_trading/manage.py makemigrations; \
+    python3 quant_trading/manage.py migrate; \
+    addgroup -g 1000 appuser; \
+    adduser -u 1000 -G appuser -D -h /app appuser; \
+    chown -R appuser:appuser /app
+
+USER appuser
+EXPOSE 8000/tcp
+
+ENTRYPOINT [ "tini", "--" ]
+CMD [ "python3", "/app/quant_trading/manage.py", "runserver", "0.0.0.0:8000" ]
