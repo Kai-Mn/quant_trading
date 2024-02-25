@@ -1,9 +1,10 @@
 version: '3.5'
 services:
-  app:
+  web:
     image: "quant_trading:latest" 
+    build: .
+    command: python3 quant_trading/manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./quant_trading:/app
-    restart: unless-stopped
-    ports: 
+      - .:/app
+    ports:
       - "8000:8000"
