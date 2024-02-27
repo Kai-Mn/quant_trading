@@ -16,9 +16,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install -r requirements.txt
 
 RUN pip install --upgrade pip setuptools-scm; \
-    python3 setup.py install; \
-    python3 quant_trading/manage.py makemigrations; \
-    python3 quant_trading/manage.py migrate; \
     addgroup -g 1000 appuser; \
     adduser -u 1000 -G appuser -D -h /app appuser; \
     chown -R appuser:appuser /app
