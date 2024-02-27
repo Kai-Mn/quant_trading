@@ -3,5 +3,5 @@ from . import views
 
 # URLConf
 urlpatterns = [
-    path('desktop/', views.desktop)
+    path('', views.index)
 ]
