@@ -4,3 +4,4 @@ tzdata==2024.1
 yfinance==0.2.37
 celery==5.3.6
 mysqlclient==2.2.4
+SQLAlchemy==2.0.27 
