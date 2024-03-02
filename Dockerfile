@@ -6,7 +6,8 @@ RUN set -xe;
 
 ADD requirements.txt .
 
-RUN apk add --no-cache python3 py3-pip;
+RUN apk add --virtual build-deps gcc python3-dev musl-dev 
+RUN apk add --no-cache python3 py3-pip mariadb-dev;
 RUN apk add tini;
 
 ENV VIRTUAL_ENV /opt/venv
