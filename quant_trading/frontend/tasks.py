@@ -18,5 +18,6 @@ database_url = 'mariadb://{user}:{password}@db:3306/{database_name}'.format(
 
 engine = create_engine(database_url, echo=False)
 
+# TODO make this not hardcoded and asynchronous with cellery or such
 data = yf.download("AAPL", period="5d")
-data.to_sql('frontend_stocks',engine,if_exists='replace')
+data.to_sql('frontend_stocks', engine, if_exists='replace')
