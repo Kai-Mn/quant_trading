@@ -1,7 +1,7 @@
 # from quant_trading import celery_app
 import yfinance as yf
 from django.conf import settings
-from frontend.models import Stocks
+# from models import Stocks 
 from sqlalchemy import create_engine
 
 user = settings.DATABASES['default']['USER']
@@ -20,4 +20,4 @@ engine = create_engine(database_url, echo=False)
 
 # TODO make this not hardcoded and asynchronous with cellery or such
 data = yf.download("AAPL", period="5d")
-data.to_sql('frontend_stocks', engine, if_exists='replace')
+data.to_sql('stocks', engine, if_exists='replace')

@@ -4,6 +4,8 @@ from django.db import models
 
 
 class Companies(models.Model):
+    class Meta:
+        db_table = 'companies'
     name = models.CharField(max_length=4, unique=True)
 
     def __self__(self):
@@ -12,7 +14,7 @@ class Companies(models.Model):
 
 class Stocks(models.Model):
     class Meta:
-        db_table = 'frontend_stocks'
+        db_table = 'stocks'
     type = models.ForeignKey(Companies, on_delete=models.CASCADE)
     date = models.IntegerField(null=False)
     open = models.FloatField(default=0)
