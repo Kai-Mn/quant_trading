@@ -1,5 +1,9 @@
 <form action="/get_stock/" method="post">
     {% csrf_token %}
     {{ form }}
+    <!-- <div class="form-group col-md-12 mb-3">
+        <label for="{{ form.type.label }}">{{ form.type.label }}</label>
+        {{ form.type }}
+    </div> -->
     <input type="submit" value="Submit">
 </form>

@@ -5,7 +5,6 @@ from django_tables2 import SingleTableView
 from .tables import StocksTable
 from .models import Stocks
 
-
 # Create your views here.
 def index(request):
     return render(request,'index.html')
