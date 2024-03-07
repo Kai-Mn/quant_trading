@@ -6,3 +6,4 @@ celery==5.3.6
 mysqlclient==2.2.4
 SQLAlchemy==2.0.27
 django-tables2==2.7.0
+ptvsd==4.3.2
