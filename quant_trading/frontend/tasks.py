@@ -23,6 +23,7 @@ engine = create_engine(database_url, echo=False)
 #TODO make this not hardcoded and asynchronous with cellery or such
 data = yf.download("AAPL", period="5d")
 
+# breakpoint()
 # def insert_on_conflict_nothing(table, conn, keys, data_iter):
 #     # "a" is the primary key in "conflict_table"
 #     data = [dict(zip(keys, row)) for row in data_iter]
@@ -37,7 +38,6 @@ data = yf.download("AAPL", period="5d")
 # print(type(data.iloc[0].name))
 # print(time.mktime(data.iloc[0].name.timetuple()))
 # print(data.iloc[0].name)
-# breakpoint()
 
 #TODO we are looping over a pd.dataframe here which is an unperformant antipattern. This should be done in SQL
 models = []

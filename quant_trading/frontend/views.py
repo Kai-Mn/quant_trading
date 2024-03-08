@@ -4,10 +4,20 @@ from .forms import StockForm
 from django_tables2 import SingleTableView
 from .tables import StocksTable
 from .models import Stocks
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    if request.method == 'POST' and 'run_script' in request.POST:
+        # import function to run
+        from .test_script import hello
+        
+        # call function
+
+        # return user to required page
+        return HttpResponseRedirect(hello())
+    else:
+        return render(request,'index.html')
 
 def get_stock(request):
     if request.method == "POST":
