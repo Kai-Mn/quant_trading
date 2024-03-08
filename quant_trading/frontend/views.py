@@ -10,12 +10,13 @@ from django.urls import reverse
 def index(request):
     if request.method == 'POST' and 'run_script' in request.POST:
         # import function to run
-        from .test_script import hello
+        from .scripts.test import exec
         
         # call function
-
+        exec()
+        
         # return user to required page
-        return HttpResponseRedirect(hello())
+        return render(request,'index.html')
     else:
         return render(request,'index.html')
 
