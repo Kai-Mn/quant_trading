@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 # Create your models here.
 
@@ -17,7 +16,7 @@ class Stocks(models.Model):
     class Meta:
         db_table = 'stocks'
     type = models.ForeignKey(Companies, on_delete=models.CASCADE)
-    date = models.IntegerField(null=False)
+    date = models.IntegerField(null=False, unique=True)
     open = models.FloatField(default=0)
     high = models.FloatField(default=0)
     low = models.FloatField(default=0)
