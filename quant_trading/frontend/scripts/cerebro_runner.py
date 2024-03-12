@@ -6,10 +6,13 @@ import numpy as np
 import time
 from .utils import convert_to_dataframe
 from ..strategies.example_strategy import TestStrategy 
+import matplotlib
 
 
 
 def exec():
+    #TODO fix for wrong backend being used by plot https://stackoverflow.com/questions/37604289/tkinter-tclerror-no-display-name-and-no-display-environment-variable
+    matplotlib.use('Agg')
     cerebro = bt.Cerebro()
     # Add a strategy
     cerebro.addstrategy(TestStrategy)    
@@ -19,6 +22,25 @@ def exec():
     df['date'] = df['date'].apply(lambda x: np.datetime64(time.strftime( '%Y-%m-%d', time.gmtime(x))))
     df.set_index('date', inplace=True)
     data = bt.feeds.PandasData(dataname=df)
+
+    # Add plotinfo to data
+    plotinfo = dict(plot=True,
+                subplot=True,
+                plotname='',
+                plotskip=False,
+                plotabove=False,
+                plotlinelabels=False,
+                plotlinevalues=True,
+                plotvaluetags=True,
+                plotymargin=0.0,
+                plotyhlines=[],
+                plotyticks=[],
+                plothlines=[],
+                plotforce=False,
+                plotmaster=None,
+                plotylimited=True,
+           )
+ 
     
     # Add the Data Feed to Cerebro
     cerebro.adddata(data)
@@ -30,4 +52,7 @@ def exec():
     cerebro.run()
 
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    cerebro.plot()
+
+    plot = cerebro.plot()
+    for index, figure in enumerate(plot[0]):
+        figure.savefig("quant_trading/frontend/plots/figure_{}.png".format(index))

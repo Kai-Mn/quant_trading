@@ -9,6 +9,7 @@ ADD requirements.txt .
 RUN apk add --virtual build-deps gcc python3-dev musl-dev 
 RUN apk add --no-cache python3 py3-pip mariadb-dev;
 RUN apk add tini;
+RUN apk add python3-tkinter;
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
