@@ -4,13 +4,12 @@ from .forms import StockForm
 from django_tables2 import SingleTableView
 from .tables import StocksTable
 from .models import Stocks
-from django.urls import reverse
 
 # Create your views here.
 def index(request):
     if request.method == 'POST' and 'run_script' in request.POST:
         # import function to run
-        from .scripts.test import exec
+        from .scripts.cerebro_runner import exec
         
         # call function
         exec()
