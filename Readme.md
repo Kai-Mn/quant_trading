@@ -14,3 +14,6 @@ Run migrations manually: `docker-compose exec web python3 quant_trading/manage.p
 Start python shell `docker compose exec app python3 quant_trading/manage.py shell`
 Run migrations linux `docker compose exec app python3 quant_trading/manage.py migrate`
 Run specific script `docker-compose exec web <script.py>`
+Run script from python shell `exec(open('./quant_trading/frontend/tasks.py').read())`
+Undo all frontend migrations `sudo docker compose exec app python3 quant_trading/manage.py migrate frontend zero`
+`docker-compose exec app sh`
