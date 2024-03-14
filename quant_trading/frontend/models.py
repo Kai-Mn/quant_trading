@@ -23,4 +23,21 @@ class Stocks(models.Model):
     close = models.FloatField(default=0)
     adj_close = models.FloatField(default=0)
     volume = models.FloatField(default=0)
-    
+
+class Simulations(models.Model):
+    class Meta:
+        db_table = 'simulations'
+    strategy = models.CharField(max_length=100, default='')
+
+class Images(models.Model):
+    class Meta:
+        db_table = 'images'
+    image = models.ImageField(upload_to='', default=None)
+
+class Results(models.Model):
+    class Meta:
+        db_table = 'results'
+    simulation = models.ForeignKey(Simulations, on_delete=models.CASCADE, null=False)
+    image = models.ForeignKey(Images, on_delete=models.CASCADE, null=False)
+
+

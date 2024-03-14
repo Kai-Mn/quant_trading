@@ -10,12 +10,12 @@ import matplotlib
 
 
 
-def exec():
+def exec(Strategy):
     #TODO fix for wrong backend being used by plot https://stackoverflow.com/questions/37604289/tkinter-tclerror-no-display-name-and-no-display-environment-variable
     matplotlib.use('Agg')
     cerebro = bt.Cerebro()
     # Add a strategy
-    cerebro.addstrategy(TestStrategy)    
+    cerebro.addstrategy(Strategy)    
     
     # Load data from database and convert it to a datafeed
     df = convert_to_dataframe(Stocks.objects.all(),fields=['open', 'high', 'low', 'close', 'volume', 'date'])
@@ -55,4 +55,5 @@ def exec():
 
     plot = cerebro.plot()
     for index, figure in enumerate(plot[0]):
-        figure.savefig("quant_trading/frontend/plots/figure_{}.png".format(index))
+        return figure
+        # figure.savefig("quant_trading/frontend/plots/figure_{}.png".format(index))

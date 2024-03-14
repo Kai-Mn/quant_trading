@@ -1,5 +1,6 @@
 from django import forms
-from .models import Companies, Stocks
+import os
+from .models import Companies, Stocks, Simulations
 
 
 class StockForm(forms.Form):
@@ -8,3 +9,17 @@ class StockForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["stock_name"].queryset = Companies.objects.all()
+
+
+class SimulationForm(forms.ModelForm):
+    class Meta:
+        model = Simulations
+        fields = '__all__'
+    
+    strategy = forms.ChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
+        #TODO this doesnt guarantee it only lists files
+        files = [[file, file] for file in os.listdir('quant_trading/frontend/strategies')]
+        self.fields["strategy"].choices = files
