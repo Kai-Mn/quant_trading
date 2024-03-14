@@ -6,6 +6,9 @@ from .tables import StocksTable
 from .models import Stocks, Images, Results
 from .scripts.cerebro_runner import exec
 from .strategies.example_strategy import TestStrategy 
+from io import BytesIO 
+from django.core.files.base import ContentFile
+from django.conf import settings
 
 # Create your views here.
 def index(request):
@@ -19,15 +22,19 @@ def index(request):
             # redirect to a new URL
             # call function
 
-            #TODO get strategy from form
+            #TODO get strategy from formy
             simulation = form.save()
-            plot = exec(TestStrategy)
-            img = Images(plot)
-
+            fig = exec(TestStrategy)
+            name = "{}_{}".format(simulation.strategy,simulation.id)
+            path = settings.MEDIA_ROOT + name
+            fig.savefig(path, format="png")
+            img = Images()
+            img.image.name = path
+            img.save()
             result = Results(simulation=simulation, image=img)
+            result.save() 
 
-            
-            return HttpResponseRedirect("/stocks")
+            return render(request,'contracts/contracts.html',{'form_data': form.cleaned_data})
 
     # if a GET (or any other method) we'll create a blank form
     else:
