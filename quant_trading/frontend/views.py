@@ -25,16 +25,17 @@ def index(request):
             #TODO get strategy from formy
             simulation = form.save()
             fig = exec(TestStrategy)
-            name = "{}_{}".format(simulation.strategy,simulation.id)
+            # name = "{}_{}.png".format(simulation.strategy,simulation.id) 
+            name = "test.png"
             path = settings.MEDIA_ROOT + name
             fig.savefig(path, format="png")
             img = Images()
-            img.image.name = path
+            img.image.name = name
             img.save()
             result = Results(simulation=simulation, image=img)
             result.save() 
 
-            return render(request,'contracts/contracts.html',{'form_data': form.cleaned_data})
+            return render(request,'results/result.html',{'result_data': result})
 
     # if a GET (or any other method) we'll create a blank form
     else:
