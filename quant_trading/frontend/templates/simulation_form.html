@@ -1,3 +1,6 @@
+{% for navbar_item in nav_items %}
+    <a href="{{ navbar_item.url }}">{{ navbar_item.title }}</a>
+{% endfor %}
 <form method="post">
     {% csrf_token %}
     {{ form }}

@@ -1,13 +1,7 @@
 {# templates/stocks.html #}
 {% load render_table from django_tables2 %}
-<!doctype html>
-<html>
-    <h1>stock here </h1>
-    <head>
-        <title>List of persons</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    </head>
-    <body>
-        {% render_table table %}
-    </body>
-</html>
+
+{% for navbar_item in nav_items %}
+    <a href="{{ navbar_item.url }}">{{ navbar_item.title }}</a> 
+{% endfor %}
+{% render_table table %}
