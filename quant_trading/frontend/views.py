@@ -5,9 +5,8 @@ from django_tables2 import SingleTableView
 from .tables import StocksTable
 from .models import Stocks, Images, Results
 from .scripts.cerebro_runner import exec
+from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
 from .strategies.example_strategy import TestStrategy 
-from io import BytesIO 
-from django.core.files.base import ContentFile
 from django.conf import settings
 
 # Create your views here.
@@ -21,12 +20,14 @@ def index(request):
             # ...
             # redirect to a new URL
             # call function
+            
+            # check_if_listed('Short_reports_data.xlsx')
+            # fetch_and_write_stocks('stocks_with_listings.xlsx')
 
             #TODO get strategy from formy
             simulation = form.save()
             fig = exec(TestStrategy)
-            # name = "{}_{}.png".format(simulation.strategy,simulation.id) 
-            name = "test.png"
+            name = "{}_{}.png".format(simulation.strategy,simulation.id) 
             path = settings.MEDIA_ROOT + name
             fig.savefig(path, format="png")
             img = Images()

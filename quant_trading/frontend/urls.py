@@ -4,6 +4,8 @@ from .views import StocksListView
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+#TODO this isn't DRY
 # URLConf
 urlpatterns = [
     path('', views.index),

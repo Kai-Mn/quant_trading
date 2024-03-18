@@ -18,8 +18,9 @@ def exec(Strategy):
     cerebro.addstrategy(Strategy)    
     
     # Load data from database and convert it to a datafeed
-    df = convert_to_dataframe(Stocks.objects.all(),fields=['open', 'high', 'low', 'close', 'volume', 'date'])
+    df = convert_to_dataframe(Stocks.objects.filter(id = 38),fields=['open', 'high', 'low', 'close', 'volume', 'date'])
     df['date'] = df['date'].apply(lambda x: np.datetime64(time.strftime( '%Y-%m-%d', time.gmtime(x))))
+    # df['openinterest'] = -1
     df.set_index('date', inplace=True)
     data = bt.feeds.PandasData(dataname=df)
 
@@ -52,6 +53,8 @@ def exec(Strategy):
     cerebro.run()
 
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+
+    
 
     plot = cerebro.plot()
     for index, figure in enumerate(plot[0]):
