@@ -26,7 +26,7 @@ def index(request):
 
             #TODO get strategy from formy
             simulation = form.save()
-            fig = exec(TestStrategy)
+            fig = exec(TestStrategy,form.data['company'])
             name = "{}_{}.png".format(simulation.strategy,simulation.id) 
             path = settings.MEDIA_ROOT + name
             fig.savefig(path, format="png")

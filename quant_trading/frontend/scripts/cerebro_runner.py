@@ -10,15 +10,15 @@ import matplotlib
 
 
 
-def exec(Strategy):
+def exec(strategy, company_id):
     #TODO fix for wrong backend being used by plot https://stackoverflow.com/questions/37604289/tkinter-tclerror-no-display-name-and-no-display-environment-variable
     matplotlib.use('Agg')
     cerebro = bt.Cerebro()
     # Add a strategy
-    cerebro.addstrategy(Strategy)    
+    cerebro.addstrategy(strategy)    
     
     # Load data from database and convert it to a datafeed
-    df = convert_to_dataframe(Stocks.objects.filter(id = 38),fields=['open', 'high', 'low', 'close', 'volume', 'date'])
+    df = convert_to_dataframe(Stocks.objects.filter(type = company_id),fields=['open', 'high', 'low', 'close', 'volume', 'date'])
     df['date'] = df['date'].apply(lambda x: np.datetime64(time.strftime( '%Y-%m-%d', time.gmtime(x))))
     # df['openinterest'] = -1
     df.set_index('date', inplace=True)
