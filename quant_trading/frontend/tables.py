@@ -7,7 +7,7 @@ class StocksTable(tables.Table):
         
 class CompaniesTable(tables.Table):
     name = tables.Column(linkify=True)
-    
+    your_field = tables.CheckBoxColumn(accessor="id")
     class Meta:
         model = Companies
 

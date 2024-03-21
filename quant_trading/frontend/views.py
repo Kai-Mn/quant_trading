@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import StockForm, SimulationForm
 from django_tables2 import SingleTableView
@@ -10,6 +10,7 @@ from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
 from .scripts.r_exporter import stock_export_to_csv
 from .strategies.example_strategy import TestStrategy 
 from django.conf import settings
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -31,15 +32,15 @@ def index(request):
             simulation = form.save()
             fig = exec(TestStrategy,form.data['company'])
             name = "{}_{}.png".format(simulation.strategy,simulation.id) 
-            path = settings.MEvDIA_ROOT + name
+            path = settings.MEDIA_ROOT + name
             fig.savefig(path, format="png")
             img = Images()
             img.image.name = name
             img.save()
             result = Results(simulation=simulation, image=img)
             result.save() 
-
-            return render(request,'results/result.html',{'result_data': result})
+            
+            return redirect(reverse('result_detail', kwargs={'result_id':result.id}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
