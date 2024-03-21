@@ -7,6 +7,7 @@ from .tables import StocksTable, ResultsTable
 from .models import Stocks, Images, Results
 from .scripts.cerebro_runner import exec
 from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
+from .scripts.r_exporter import stock_export_to_csv
 from .strategies.example_strategy import TestStrategy 
 from django.conf import settings
 
@@ -24,12 +25,13 @@ def index(request):
             
             # check_if_listed('Short_reports_data.xlsx')
             # fetch_and_write_stocks('stocks_with_listings.xlsx')
-
+        
             #TODO get strategy from formy
+            # stock_export_to_csv('AI')
             simulation = form.save()
             fig = exec(TestStrategy,form.data['company'])
             name = "{}_{}.png".format(simulation.strategy,simulation.id) 
-            path = settings.MEDIA_ROOT + name
+            path = settings.MEvDIA_ROOT + name
             fig.savefig(path, format="png")
             img = Images()
             img.image.name = name
@@ -82,5 +84,6 @@ class ResultDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print('---------------self')
+        context['image_url'] = Results.objects.get(id = kwargs['result_id']).image.image.url
         print(kwargs)
+        return context
