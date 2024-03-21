@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import StockForm, SimulationForm
 from django_tables2 import SingleTableView
-from .tables import StocksTable
+from django.views.generic import TemplateView
+from .tables import StocksTable, ResultsTable
 from .models import Stocks, Images, Results
 from .scripts.cerebro_runner import exec
 from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
@@ -69,3 +70,17 @@ class StocksListView(SingleTableView):
     model = Stocks
     table_class = StocksTable
     template_name = 'stocks.html'
+
+
+class ResultsListView(SingleTableView):
+    model = Results
+    table_class = ResultsTable
+    template_name = 'results.html'
+
+class ResultDetailView(TemplateView):
+    template_name = 'result_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print('---------------self')
+        print(kwargs)

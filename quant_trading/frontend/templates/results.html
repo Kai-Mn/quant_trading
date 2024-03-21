@@ -1,0 +1,7 @@
+{# templates/results.html #}
+{% load render_table from django_tables2 %}
+
+{% for navbar_item in nav_items %}
+    <a href="{{ navbar_item.url }}">{{ navbar_item.title }}</a> 
+{% endfor %}
+{% render_table table %}

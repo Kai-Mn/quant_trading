@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import StocksListView
+from .views import StocksListView, ResultsListView, ResultDetailView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -10,5 +10,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index),
     path('get_stock/', views.get_stock),
-    path('stocks/', StocksListView.as_view())
+    path('stocks/', StocksListView.as_view()),
+    path('results/', ResultsListView.as_view()),
+    path('results/<int:result_id>', ResultDetailView.as_view(), name='result_detail')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -40,5 +41,9 @@ class Results(models.Model):
         db_table = 'results'
     simulation = models.ForeignKey(Simulations, on_delete=models.CASCADE, null=False)
     image = models.ForeignKey(Images, on_delete=models.CASCADE, null=False)
+
+    def get_absolute_url(self):
+        return reverse('result_detail', kwargs={'result_id': self.id})
+        # return reverse('result_detail', args=[str(self.id)])
 
 

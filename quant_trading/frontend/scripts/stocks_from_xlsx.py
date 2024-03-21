@@ -72,5 +72,6 @@ def fetch_and_write_stocks(path):
                     )
                 )
 
+
             Stocks.objects.bulk_create(models,ignore_conflicts=True)
 
