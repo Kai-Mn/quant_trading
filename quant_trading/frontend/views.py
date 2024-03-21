@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from .forms import StockForm, SimulationForm
 from django_tables2 import SingleTableView
 from django.views.generic import TemplateView
-from .tables import StocksTable, ResultsTable
-from .models import Stocks, Images, Results
+from .tables import StocksTable, ResultsTable, CompaniesTable
+from .models import Stocks, Images, Results, Companies
 from .scripts.cerebro_runner import exec
 from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
 from .scripts.r_exporter import stock_export_to_csv
@@ -73,6 +73,10 @@ class StocksListView(SingleTableView):
     table_class = StocksTable
     template_name = 'stocks.html'
 
+class CompaniesListView(SingleTableView):
+    model = Companies
+    table_class = CompaniesTable
+    template_name = 'companies.html'
 
 class ResultsListView(SingleTableView):
     model = Results

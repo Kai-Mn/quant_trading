@@ -10,8 +10,8 @@ class Companies(models.Model):
         db_table = 'companies'
     name = models.CharField(max_length=20, unique=True)
 
-    def __str__(self):
-        return self.name
+    def get_absolute_url(self):
+        return reverse('companies')
 
 class Stocks(models.Model):
     class Meta:
