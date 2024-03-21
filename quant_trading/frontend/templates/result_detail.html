@@ -1,0 +1,10 @@
+{# templates/result_detail.html #}
+
+{% for navbar_item in nav_items %}
+    <a href="{{ navbar_item.url }}">{{ navbar_item.title }}</a> 
+{% endfor %}
+
+{% csrf_token %}
+{% for obj in objects_list%}
+   <h1>{{obj.result_id}}</h1>
+{% endfor %}

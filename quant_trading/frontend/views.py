@@ -1,23 +1,49 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .forms import StockForm
+from .forms import StockForm, SimulationForm
 from django_tables2 import SingleTableView
-from .tables import StocksTable
-from .models import Stocks
+from django.views.generic import TemplateView
+from .tables import StocksTable, ResultsTable
+from .models import Stocks, Images, Results
+from .scripts.cerebro_runner import exec
+from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
+from .strategies.example_strategy import TestStrategy 
+from django.conf import settings
 
 # Create your views here.
 def index(request):
-    if request.method == 'POST' and 'run_script' in request.POST:
-        # import function to run
-        from .scripts.cerebro_runner import exec
-        
-        # call function
-        exec()
-        
-        # return user to required page
-        return render(request,'index.html')
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = SimulationForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL
+            # call function
+            
+            # check_if_listed('Short_reports_data.xlsx')
+            # fetch_and_write_stocks('stocks_with_listings.xlsx')
+
+            #TODO get strategy from formy
+            simulation = form.save()
+            fig = exec(TestStrategy,form.data['company'])
+            name = "{}_{}.png".format(simulation.strategy,simulation.id) 
+            path = settings.MEDIA_ROOT + name
+            fig.savefig(path, format="png")
+            img = Images()
+            img.image.name = name
+            img.save()
+            result = Results(simulation=simulation, image=img)
+            result.save() 
+
+            return render(request,'results/result.html',{'result_data': result})
+
+    # if a GET (or any other method) we'll create a blank form
     else:
-        return render(request,'index.html')
+        form = SimulationForm()
+    return render(request, "simulation_form.html", {"form": form})
+    
 
 def get_stock(request):
     if request.method == "POST":
@@ -44,3 +70,17 @@ class StocksListView(SingleTableView):
     model = Stocks
     table_class = StocksTable
     template_name = 'stocks.html'
+
+
+class ResultsListView(SingleTableView):
+    model = Results
+    table_class = ResultsTable
+    template_name = 'results.html'
+
+class ResultDetailView(TemplateView):
+    template_name = 'result_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print('---------------self')
+        print(kwargs)

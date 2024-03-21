@@ -8,4 +8,5 @@ SQLAlchemy==2.0.27
 django-tables2==2.7.0
 ptvsd==4.3.2
 backtrader-plotting==2.0.0
+openpyxl==3.1.2
 matplotlib
