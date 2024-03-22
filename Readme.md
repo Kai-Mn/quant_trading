@@ -1,19 +1,18 @@
-# Setup Project on Windows
-## Requirements
-* [WSL 2.0](https://learn.microsoft.com/en-us/windows/wsl/install)
-* [Docker](https://docs.docker.com/desktop/install/windows-install/)
+# General info
 
-## Setup
-1) Clone Project
-2) Build image `docker build --no-cache -t quant_trading .`
-3) Start docker-compose container `docker-compose up`
+This is a project in work. 
+The purpose of this application is to make back testing for our trading strategies easy. Not to much attention has been given yet on performance or look and feel.
+The biggest pet peeve currently is that it contains blocking code that will be put into tasks with celery later on once we get to testing.
 
-## usefull commands
-Run Stylchecker: `docker-compose exec web flake8 quant_trading/ --max-line-length=127` TODO: Make this commit hook
-Run migrations manually: `docker-compose exec web python3 quant_trading/manage.py migrate`
-Start python shell `docker compose exec app python3 quant_trading/manage.py shell`
-Run migrations linux `docker compose exec app python3 quant_trading/manage.py migrate`
-Run specific script `docker-compose exec web <script.py>`
-Run script from python shell `exec(open('./quant_trading/frontend/tasks.py').read())`
-Undo all frontend migrations `sudo docker compose exec app python3 quant_trading/manage.py migrate frontend zero`
-`docker-compose exec app sh`
+## Docker compose
+
+We use a `docker compose` set up for our development because some libraries don’t run under windows and it simplifies deployment. 
+
+## Database
+
+We are using `Mariadb` because we are familiar with it. `SQlite` would have done an equally well job here. 
+
+## Deployment
+TODO
+
+This project isn't meant to be really deployed but will be as a showcase and because i wanted to try github actions. 

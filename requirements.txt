@@ -1,4 +1,4 @@
-Django==5.0.2
+Django==4.2.11
 flake8==7.0.0
 tzdata==2024.1
 yfinance==0.2.37
@@ -10,3 +10,4 @@ ptvsd==4.3.2
 backtrader-plotting==2.0.0
 openpyxl==3.1.2
 matplotlib
+django-bootstrap-v5==1.0.11
