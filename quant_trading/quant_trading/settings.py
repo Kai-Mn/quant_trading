@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '217.78.237.117',
+    'kaman.ch',
     'localhost']
 
 
