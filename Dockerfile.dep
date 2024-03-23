@@ -1,15 +1,12 @@
 FROM alpine:3.19.1
 
-ADD . /app
 WORKDIR /app
+COPY requirements.txt /app
 
 RUN set -xe;
 
-ADD requirements.txt .
-
 RUN apk add --virtual build-deps gcc python3-dev musl-dev 
 RUN apk add --no-cache python3 py3-pip mariadb-dev;
-RUN apk add tini;
 RUN apk add python3-tkinter;
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -28,4 +25,7 @@ RUN pip install --upgrade pip setuptools-scm; \
 USER appuser
 EXPOSE 8000/tcp
 
-ENTRYPOINT [ "tini", "--" ]
+COPY . /app
+
+ENTRYPOINT [ "python", "quant_trading/manage.py" ]
+CMD ["runserver", "0.0.0.0:8000"]
