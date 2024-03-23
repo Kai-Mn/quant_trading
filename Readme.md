@@ -13,6 +13,12 @@ We use a `docker compose` set up for our development because some libraries donâ
 We are using `Mariadb` because we are familiar with it. `SQlite` would have done an equally well job here. 
 
 ## Deployment
-TODO
 
-This project isn't meant to be really deployed but will be as a showcase and because i wanted to try github actions. 
+This project isn't meant to be really deployed but will be as a showcase. 
+It currently gets deployed manually over a github action that builds a docker image and pushes it to the ghcr then ssh in to the server where it pulls the image and runs it. 
+
+## TODOs
+
+* Make a deployment conf with Debug disabled
+* Only enable https on deployment
+* Get a decent Bootstrap template
