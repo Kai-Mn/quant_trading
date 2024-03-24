@@ -1,11 +1,10 @@
 # General info
 
-This is a project in work. 
 The purpose of this application is to make back testing for our trading strategies easy. Not to much attention has been given yet on performance or look and feel.
+Because it's a theoretical thesis we prioritize the paper and a lot of work is currently done by manually running scripts. The goal is develop this frontend in some spare time and have it working well by the end of it. 
 The biggest pet peeve currently is that it contains blocking code that will be put into tasks with celery later on once we get to testing.
 
 ## Docker compose
-
 We use a `docker compose` set up for our development because some libraries don’t run under windows and it simplifies deployment. 
 
 ## Database
@@ -19,6 +18,6 @@ It currently gets deployed manually over a github action that builds a docker im
 
 ## TODOs
 
-* Make a deployment conf with Debug disabled
+* Make a deployment conf with Debugger disabled. 
 * Only enable https on deployment
 * Get a decent Bootstrap template
