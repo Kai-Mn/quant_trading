@@ -3,6 +3,12 @@
 
 {% load bootstrap5 %}
 
+{% block title %}
+    Companies
+{% endblock %}
+
 {% block content %}
-    {% render_table table %}
+    <div class="container">
+        {% render_table table %}
+    </div>
 {% endblock %}

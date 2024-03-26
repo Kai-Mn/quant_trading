@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 
+{% block title %}
+    Simulations
+{% endblock %}
+
 {% block content %} 
     {# Display a form #}
-    <form action=" " method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {% buttons %}
-            <button type="submit" class="btn btn-primary">
-            Submit
-            </button>
-        {% endbuttons %}
-    </form>
+    <div class="container">
+        <form action=" " method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                Submit
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
 {% endblock %}
 
