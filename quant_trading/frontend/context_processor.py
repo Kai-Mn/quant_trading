@@ -8,7 +8,8 @@ def nav_bar(request):
             {'title': 'home', 'url': '/'},
             {'title': 'stocks', 'url': '/stocks'},
             {'title': 'companies', 'url': '/companies'},
-            {'title': 'result', 'url': '/results'}
+            {'title': 'result', 'url': '/results'},
+            {'title': 'get_stock', 'url': '/get_stock'}
 
         ]
     }
