@@ -13,24 +13,14 @@ from django.conf import settings
 from django.urls import reverse
 
 
+    
 # Create your views here.
 def index(request):
-    # return render(request, 'base.html')
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
         form = SimulationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL
-            # call function
-            
-            # check_if_listed('Short_reports_data.xlsx')
-            # fetch_and_write_stocks('stocks_with_listings.xlsx')
-        
-            #TODO get strategy from formy
-            # stock_export_to_csv('AI')
             simulation = form.save()
             fig = exec(TestStrategy,form.data['company'])
             name = "{}_{}.png".format(simulation.strategy,simulation.id) 
@@ -48,7 +38,6 @@ def index(request):
     else:
         form = SimulationForm()
     return render(request, "simulation_form.html", {"form": form})
-    
 
 def get_stock(request):
     if request.method == "POST":
