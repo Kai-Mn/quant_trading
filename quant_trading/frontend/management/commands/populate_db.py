@@ -54,7 +54,7 @@ class Command(BaseCommand):
                     if not Stocks.objects.filter(date = model.date , type = model.type.id):
                         model.save()
                         self.stdout.write(
-                            self.style.SUCCESS("Successfully created entry for {0} with timestamp {1} already exists".format(model.type.name, model.date))
+                            self.style.SUCCESS("Successfully created entry for {0} with timestamp {1}".format(model.type.name, model.date))
                         )
                     else:
                         self.stderr.write(
