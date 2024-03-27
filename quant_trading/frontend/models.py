@@ -12,6 +12,9 @@ class Companies(models.Model):
 
     def get_absolute_url(self):
         return reverse('companies')
+    
+    def __str__(self):
+        return self.name
 
 class Stocks(models.Model):
     class Meta:

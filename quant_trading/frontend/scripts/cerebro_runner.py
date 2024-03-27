@@ -1,12 +1,13 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
+import matplotlib
 import backtrader as bt
 from ..models import Stocks
 import numpy as np
 import time
 from .utils import convert_to_dataframe
 from ..strategies.example_strategy import TestStrategy 
-import matplotlib
+
 
 
 
