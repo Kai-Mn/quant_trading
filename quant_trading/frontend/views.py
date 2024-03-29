@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .forms import StockForm, SimulationForm
 from django_tables2 import SingleTableView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from .tables import StocksTable, ResultsTable, CompaniesTable
-from .models import Stocks, Images, Results, Companies
+from .models import Stocks, Images, Results, Companies, Simulations
 from .scripts.cerebro_runner import exec
 from .scripts.stocks_from_xlsx import check_if_listed, fetch_and_write_stocks
 from .scripts.r_exporter import stock_export_to_csv
@@ -12,6 +12,8 @@ from .strategies.example_strategy import TestStrategy
 from django.conf import settings
 from django.urls import reverse
 
+
+    
 # Create your views here.
 def index(request):
     if request.method == "POST":
@@ -19,16 +21,6 @@ def index(request):
         form = SimulationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL
-            # call function
-            
-            # check_if_listed('Short_reports_data.xlsx')
-            # fetch_and_write_stocks('stocks_with_listings.xlsx')
-        
-            #TODO get strategy from formy
-            # stock_export_to_csv('AI')
             simulation = form.save()
             fig = exec(TestStrategy,form.data['company'])
             name = "{}_{}.png".format(simulation.strategy,simulation.id) 
@@ -46,7 +38,6 @@ def index(request):
     else:
         form = SimulationForm()
     return render(request, "simulation_form.html", {"form": form})
-    
 
 def get_stock(request):
     if request.method == "POST":
@@ -67,7 +58,6 @@ def get_stock(request):
 
 def show_stock(request):
     return render(request, 'stocks.html')
-
 
 class StocksListView(SingleTableView):
     model = Stocks

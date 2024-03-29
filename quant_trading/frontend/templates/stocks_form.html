@@ -1,9 +1,22 @@
-<form action="/get_stock/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <!-- <div class="form-group col-md-12 mb-3">
-        <label for="{{ form.type.label }}">{{ form.type.label }}</label>
-        {{ form.type }}
-    </div> -->
-    <input type="submit" value="Submit">
-</form>
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block title %}
+    StockForm
+{% endblock %}
+
+{% block content %} 
+    {# Display a form #}
+    <form action=" " method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+            Submit
+            </button>
+        {% endbuttons %}
+    </form>
+{% endblock %}
+
+
+

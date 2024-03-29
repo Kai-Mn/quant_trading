@@ -13,5 +13,5 @@ urlpatterns = [
     path('stocks/', StocksListView.as_view()),
     path('results/', ResultsListView.as_view()),
     path('companies/', CompaniesListView.as_view(), name='companies'),
-    path('results/<int:result_id>', ResultDetailView.as_view(), name='result_detail')
+    path('results/<int:result_id>', ResultDetailView.as_view(), name='result_detail'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
