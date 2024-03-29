@@ -1,25 +1,26 @@
-{# Load the tag library #}
+{% extends 'base.html' %}
 {% load bootstrap5 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block title %}
+    Simulations
+{% endblock %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+{% block content %} 
+    {# Display a form #}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            This fails on the first run. Without an Xorg server matplotlib can't render with TKgg and the Agg replacement doesn't load properly yet.
+             I'll look to it at a later date as we dont need it right now. 
+        </div>
+        <form action=" " method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                Submit
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
 
-
-{% for navbar_item in nav_items %}
-    <a href="{{ navbar_item.url }}">{{ navbar_item.title }}</a>
-{% endfor %}
-
-{# Display a form #}
-<form action=" " method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      Submit
-    </button>
-  {% endbuttons %}
-</form>
