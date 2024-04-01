@@ -1,6 +1,27 @@
 import pandas as pd
+import io 
+import csv
 
-# converts querryset to dataframe
+
+def files_to_zip(fl):
+    return False
+
+# Converts model to csv
+def model_to_csv(qs,field_names=None):
+    if(field_names == None):
+        opts = qs.model._meta
+        field_names = [field.name for field in opts.fields]
+    # Open StringIO to write and grab in-memory csv files
+    csv_file = io.StringIO()
+    writer = csv.writer(csv_file)
+    # Writes head
+    writer.writerow(field_names)
+    # Writes DB rows to csv
+    for obj in qs:
+        writer.writerow([getattr(obj, field) for field in field_names])
+    return csv_file
+
+# COnverts querryset to dataframe
 def convert_to_dataframe(qs, fields=None, index=None):
     """
     ::param qs is an QuerySet from Django
