@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  db:
+    image: mariadb:11.1.4 
+    environment:
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=mariadb
+      - MYSQL_PASSWORD=mariadb
+    volumes:
+      - mariadb_data_note:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mariadb_data_note:
