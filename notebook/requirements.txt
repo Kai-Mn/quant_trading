@@ -7,3 +7,4 @@ backtrader-plotting==2.0.0
 openpyxl==3.1.2
 matplotlib
 scikit-learn==1.4.0
+xgboost==2.0.3
